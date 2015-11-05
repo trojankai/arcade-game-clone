@@ -1,4 +1,4 @@
-var randomInt
+var randomInt = Math.floor((Math.random() * 10) + 1);
 
 // Enemies our player must avoid
 var Enemy = function() {
@@ -10,7 +10,7 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.x = 101;
     this.y = 101;
-    this.speed = Math.random()*1000;
+    this.speed = randomInt * x;
 
 };
 
