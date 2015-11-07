@@ -17,13 +17,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += randomInt * dt;
+    this.x += 54;
 
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), 101, 83);
+    ctx.drawImage(Resources.get(this.sprite),(Math.floor((Math.random()*500)+50)), (Math.floor(Math.random()*100)+50));
 };
 
 var Player = function() {
@@ -45,7 +45,7 @@ Player.prototype.render = function() {
 //
 // }
 var allEnemies = [];
-var eStart = 4
+var eStart = 6
 var player = new Player();
 var enemy = new Enemy();
   for (var i = 0; i < eStart; i++){
