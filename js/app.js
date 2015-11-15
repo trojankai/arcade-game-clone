@@ -1,5 +1,8 @@
-var randomInt = Math.floor((Math.random() * 10) + 1);
-
+var randomInt = function(min, max) {
+    return Math.floor((Math.random() * max) + min)};
+var allEnemies = [];
+var eStart = 6
+var enemyPos = 0;
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -17,14 +20,20 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += 54;
-
+    enemyPos += randomInt(1,20) * dt;
+    this.x = enemyPos;
+    // console.log(randomInt(1,50));
+    window.requestAnimationFrame(Enemy);
+    // console.log("this is printing");
+    if (enemyPos >= 600) {
+        enemyPos = 0;
+      }
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite),(Math.floor((Math.random()*500)+50)), (Math.floor(Math.random()*100)+50));
-};
+    ctx.drawImage(Resources.get(this.sprite),this.x, randomInt(54,108))
+    };
 
 var Player = function() {
 
@@ -44,8 +53,8 @@ Player.prototype.render = function() {
 // Player.prototype.handleInput(){
 //
 // }
-var allEnemies = [];
-var eStart = 6
+
+
 var player = new Player();
 var enemy = new Enemy();
   for (var i = 0; i < eStart; i++){
