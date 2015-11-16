@@ -1,16 +1,19 @@
 var randomInt = function(min, max) {
     return Math.floor((Math.random() * max) + min)};
 var allEnemies = [];
-var eStart = 6
-var enemyPos = 0;
+var eStart = 6;
+var enemyPosX = 0;
+var enemyPosY = 0;
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = 0;
+    this.y = 108 * randomInt(0,3);
+
 
   };
 
@@ -20,25 +23,30 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    enemyPos += randomInt(1,20) * dt;
-    this.x = enemyPos;
-    // console.log(randomInt(1,50));
-    window.requestAnimationFrame(Enemy);
-    // console.log("this is printing");
-    if (enemyPos >= 600) {
-        enemyPos = 0;
-      }
+    // window.requestAnimationFrame(Enemy);
+    for (var i = 0; i <= eStart; i++) {
+      this.x += randomInt(10,50) * dt;
+        console.log(allEnemies[i]);
+        // console.log(randomInt(1,50));
+        // console.log(enemyPosY);
+        if (this.x >= 600) {
+            this.x = -10;
+          }
+    }
+
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite),this.x, randomInt(54,108))
+    ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
     };
 
 var Player = function() {
 
   this.sprite = 'images/char-boy.png';
-}
+  this.x = 404/2;
+  this.y = 400;
+};
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -46,20 +54,30 @@ Player.prototype.update = function() {
 
 };
 
+
 Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite),200, 380);
+  ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
 };
 
-// Player.prototype.handleInput(){
+// Player.prototype.handleInput() {
+//   switch (keyCode) {
+//     case 37:
+//       this.x -= 54;
+//       break;
+//     default:
 //
-// }
+//   }
+// };
 
 
 var player = new Player();
+
+
 var enemy = new Enemy();
   for (var i = 0; i < eStart; i++){
     allEnemies.push(enemy);
-};
+  };
+
 
 
 // Now instantiate your objects.
