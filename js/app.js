@@ -1,9 +1,8 @@
+//function used for random integer generation for speeds
 var randomInt = function(min, max) {
     return Math.floor((Math.random() * max) + min)};
-var allEnemies = [];
-var eStart = 6;
-var enemyPosX = 0;
-var enemyPosY = 0;
+
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -11,8 +10,13 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    //since x will be changed in update, x starts at 0
     this.x = 0;
-    this.y = 108 * randomInt(0,3);
+    //random y position generated
+    this.y = 101 * randomInt(0,3);
+      if (this.y == 112){
+      return this.y - 50;
+    };
 
 
   };
@@ -41,6 +45,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
     };
 
+
 var Player = function() {
 
   this.sprite = 'images/char-boy.png';
@@ -51,7 +56,10 @@ var Player = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.update = function() {
+    if (this.x > 500 || this.x < 0){
+      this.x = 500;
 
+    };
 };
 
 
@@ -59,30 +67,35 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
 };
 
-// Player.prototype.handleInput() {
-//   switch (keyCode) {
-//     case 37:
-//       this.x -= 54;
-//       break;
-//     default:
-//
-//   }
-// };
+Player.prototype.handleInput = function(e) {
+    if (e === 'left' && this.x > 0 ) {
+        this.x -= 101;
+    }
+    if (e === 'right' && this.x < 600 ) {
+        this.x += 101;
+    }
+    if (e === 'up' && this.y >= 0 ) {
+        this.y -= 83;
+    }
+    if (e === 'down' && this.y < 500 ) {
+        this.y += 83;
+}};
 
 
-var player = new Player();
-
-
-var enemy = new Enemy();
-  for (var i = 0; i < eStart; i++){
-    allEnemies.push(enemy);
-  };
 
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var player = new Player();
+
+var allEnemies =[];
+var eStart = 6;
+
+for (var i = 0; i < eStart; i++){
+  allEnemies.push(new Enemy());
+  };
 
 
 
@@ -95,6 +108,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
