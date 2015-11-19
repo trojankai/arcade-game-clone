@@ -16,7 +16,7 @@ var Enemy = function() {
     this.y = 101 * randomInt(0,3);
       if (this.y == 112){
       return this.y - 50;
-    };
+      };
 
 
   };
@@ -37,7 +37,7 @@ Enemy.prototype.update = function(dt) {
             this.x = -10;
           }
     }
-
+    setInterval(new Enemy, 1000);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -68,16 +68,16 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    if (e === 'left' && this.x > 0 ) {
+    if (e === 'left' && this.x >= 0 ) {
         this.x -= 101;
     }
-    if (e === 'right' && this.x < 600 ) {
+    if (e === 'right' && this.x <= 500 ) {
         this.x += 101;
     }
     if (e === 'up' && this.y >= 0 ) {
         this.y -= 83;
     }
-    if (e === 'down' && this.y < 500 ) {
+    if (e === 'down' && this.y <= 400 ) {
         this.y += 83;
 }};
 
@@ -91,9 +91,10 @@ Player.prototype.handleInput = function(e) {
 var player = new Player();
 
 var allEnemies =[];
-var eStart = 6;
+var eStart = 2;
 
 for (var i = 0; i < eStart; i++){
+
   allEnemies.push(new Enemy());
   };
 
