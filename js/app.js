@@ -2,22 +2,22 @@
 var randomInt = function(min, max) {
     return Math.floor((Math.random() * max) + min)};
 
-
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
     //since x will be changed in update, x starts at 0
     this.x = 0;
-    //random y position generated
-    this.y = 101 * randomInt(0,3);
-      if (this.y == 112){
-      return this.y - 50;
-      };
 
+    //y position determined at instantiation
+    this.y = y;
+
+    //generate random speed for update
+    this.speed = randomInt(25,100);
 
   };
 
@@ -28,16 +28,14 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     // window.requestAnimationFrame(Enemy);
-    for (var i = 0; i <= eStart; i++) {
-      this.x += randomInt(10,50) * dt;
-        console.log(allEnemies[i]);
-        // console.log(randomInt(1,50));
-        // console.log(enemyPosY);
+    for (var i = 0; i <= allEnemies.length; i++) {
+      this.x += this.speed * dt;
         if (this.x >= 600) {
             this.x = -10;
+            return this.x;
           }
     }
-    setInterval(new Enemy, 1000);
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -49,18 +47,24 @@ Enemy.prototype.render = function() {
 var Player = function() {
 
   this.sprite = 'images/char-boy.png';
-  this.x = 404/2;
+  this.x = 202;
   this.y = 400;
 };
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-Player.prototype.update = function() {
-    if (this.x > 500 || this.x < 0){
-      this.x = 500;
 
+Player.prototype.update = function() {
+  //keeps player in the game area
+    if (this.x > 404 ){
+      this.x = 404;
+    }
+    if (this.x > 0){
+        this.x == 0;
+      }
+    return this.x;
     };
-};
+
 
 
 Player.prototype.render = function() {
@@ -68,20 +72,29 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    if (e === 'left' && this.x >= 0 ) {
+    if (e === 'left' && this.x > 0 ) {
         this.x -= 101;
     }
-    if (e === 'right' && this.x <= 500 ) {
+    if (e === 'right' && this.x < 500 ) {
         this.x += 101;
     }
-    if (e === 'up' && this.y >= 0 ) {
+    if (e === 'up' && this.y > 0 ) {
         this.y -= 83;
     }
-    if (e === 'down' && this.y <= 400 ) {
+    if (e === 'down' && this.y < 400 ) {
         this.y += 83;
 }};
 
+var checkCollisions = function(){
+    for(var c = 0; c <= allEnemies.length; c ++ ){
+      if (Player.x && Player.y === allEnemies[c].x && allEnemies[c].y){
+        console.log('you lose');
+      };
+    new Player();
+    }
 
+
+}
 
 
 
@@ -91,12 +104,13 @@ Player.prototype.handleInput = function(e) {
 var player = new Player();
 
 var allEnemies =[];
-var eStart = 2;
 
-for (var i = 0; i < eStart; i++){
+//instantiate enemies
+var enemy = new Enemy(50);
+var enemy2 = new Enemy(140);
+var enemy3 = new Enemy(230);
 
-  allEnemies.push(new Enemy());
-  };
+allEnemies.push(enemy, enemy2, enemy3);
 
 
 
