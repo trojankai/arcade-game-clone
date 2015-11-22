@@ -74,11 +74,11 @@ Player.prototype.update = function() {
     return this.x;
     };
 
-// Player.prototype.reset = function(){
-//   //resets player position
-//     this.x = 0;
-//     this.y = 400;
-// }
+Player.prototype.reset = function(){
+  //resets player position
+    this.x = 0;
+    this.y = 400;
+}
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
