@@ -31,13 +31,22 @@ Enemy.prototype.update = function(dt) {
     for (var i = 0; i <= allEnemies.length; i++) {
       this.x += this.speed * dt;
         if (this.x >= 600) {
-            this.x = -10;
+            this.x = -50;
             return this.x;
           }
     }
+    this.checkCollision(player);
 
 };
-
+Enemy.prototype.checkCollision = function(player) {
+    if (player.x < this.x + 50 &&
+        player.x + 65 > this.x &&
+        player.y < this.y + 50 &&
+        50 + player.y > this.y) {
+        //resets player when collision occurs
+        player.reset();
+    }
+};
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
@@ -47,7 +56,7 @@ Enemy.prototype.render = function() {
 var Player = function() {
 
   this.sprite = 'images/char-boy.png';
-  this.x = 202;
+  this.x = 0;
   this.y = 400;
 };
 // Now write your own player class
@@ -65,7 +74,11 @@ Player.prototype.update = function() {
     return this.x;
     };
 
-
+// Player.prototype.reset = function(){
+//   //resets player position
+//     this.x = 0;
+//     this.y = 400;
+// }
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
@@ -85,16 +98,16 @@ Player.prototype.handleInput = function(e) {
         this.y += 83;
 }};
 
-var checkCollisions = function(){
-    for(var c = 0; c <= allEnemies.length; c ++ ){
-      if (Player.x && Player.y === allEnemies[c].x && allEnemies[c].y){
-        console.log('you lose');
-      };
-    new Player();
-    }
-
-
-}
+// var checkCollisions = function(){
+//     for(var c = 0; c <= allEnemies.length; c++ ){
+//       if (Player.x && Player.y === allEnemies[c].x + 83 && allEnemies[c].y + 101){
+//         console.log('you lose');
+//       };
+//     new Player();
+//     }
+//
+//
+// }
 
 
 
@@ -102,7 +115,6 @@ var checkCollisions = function(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var player = new Player();
-
 var allEnemies =[];
 
 //instantiate enemies
