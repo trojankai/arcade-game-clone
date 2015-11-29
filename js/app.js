@@ -17,7 +17,7 @@ var Enemy = function(y, speed) {
     this.y = y;
 
     //generate random speed for update
-    this.speed = randomInt(25,100);
+    this.speed = randomInt(25,75);
 
   };
 
@@ -38,6 +38,7 @@ Enemy.prototype.update = function(dt) {
     this.checkCollision(player);
 
 };
+
 Enemy.prototype.checkCollision = function(player) {
     if (player.x < this.x + 50 &&
         player.x + 65 > this.x &&
@@ -45,6 +46,14 @@ Enemy.prototype.checkCollision = function(player) {
         50 + player.y > this.y) {
         //resets player when collision occurs
         player.reset();
+        //window reloads to restart game
+        //location.reload();
+        Points -= 200;
+        Lives -= 1;
+
+    if (Lives == 0) {
+      location.reload();
+    }
     }
 };
 // Draw the enemy on the screen, required method for game
@@ -98,18 +107,14 @@ Player.prototype.handleInput = function(e) {
         this.y += 83;
 }};
 
-// var checkCollisions = function(){
-//     for(var c = 0; c <= allEnemies.length; c++ ){
-//       if (Player.x && Player.y === allEnemies[c].x + 83 && allEnemies[c].y + 101){
-//         console.log('you lose');
-//       };
-//     new Player();
-//     }
-//
-//
-// }
+//spawn enemy after 5 seconds
+var timedSpawn = function(){
+  enemy4 = new Enemy(140);
+  allEnemies.push(enemy4);
+  console.log('i have spawned');
+}
 
-
+setTimeout(timedSpawn, 10*1000);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
