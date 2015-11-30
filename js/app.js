@@ -83,6 +83,7 @@ Player.prototype.update = function() {
     return this.x;
     };
 
+
 Player.prototype.reset = function(){
   //resets player position
     this.x = 0;
@@ -91,6 +92,10 @@ Player.prototype.reset = function(){
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
+  //draw score and lives on the screen
+  ctx.font = "30px Arial"
+  ctx.fillText('Points: '+Points, 0, 101);
+  ctx.fillText('Lives: '+Lives, 0, 410);
 };
 
 Player.prototype.handleInput = function(e) {

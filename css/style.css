@@ -1,13 +1,11 @@
 body {
     text-align: center;
+    background-color: grey;
 }
   #score {
-    /*float:left;*/
+    float:left;
     border: 1px red solid;
-    /*height: 200px;
-    width: 100px;*/
-    display: block;
-    text-align: center;
+
 
 }
 
