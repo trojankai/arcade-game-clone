@@ -118,8 +118,8 @@ var timedSpawn = function(){
   allEnemies.push(enemy4);
   console.log('i have spawned');
 }
-
-setTimeout(timedSpawn, 10*1000);
+//spawns another enemy after 10 seconds
+//setTimeout(timedSpawn, 10*1000);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -132,7 +132,7 @@ var enemy = new Enemy(50);
 var enemy2 = new Enemy(140);
 var enemy3 = new Enemy(230);
 
-allEnemies.push(enemy, enemy2, enemy3);
+// allEnemies.push(enemy, enemy2, enemy3);
 
 
 
