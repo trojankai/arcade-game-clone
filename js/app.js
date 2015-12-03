@@ -85,9 +85,6 @@ Player.prototype.update = function() {
         this.x == 0;
       }
     return this.x;
-    while (this.y <= 0)
-      {this.reset();
-      Points += 100;}
     };
 
 
@@ -100,6 +97,7 @@ Player.prototype.render = function() {
   ctx.fillText('Points: '+Points, 0, 101);
   ctx.fillText('Lives: '+Lives, 0, 410);
 };
+//keyboard handler
 
 Player.prototype.handleInput = function(e) {
     if (e === 'left' && this.x > 0 ) {

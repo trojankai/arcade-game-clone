@@ -9,6 +9,7 @@ The goal is to move back and forth across the board collecting items for points 
 
 Enemies will continue to spawn the longer you play the game
 
+You start with 3 lives, when your lives are gone the game will automatically restart.
 
 Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
 

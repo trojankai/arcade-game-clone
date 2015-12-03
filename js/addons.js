@@ -3,7 +3,7 @@ var allHearts = [];
 var Points = 0;
 var Lives = 3;
 var cnstXpos = [0,101,202,303,404];
-var cnstYpos = [50,140,230];
+var cnstYpos = [70,150,240];
 
 
 //Heart object
