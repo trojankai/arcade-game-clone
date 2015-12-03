@@ -3,7 +3,7 @@ var randomInt = function(min, max) {
     return Math.floor((Math.random() * max) + min)};
 
 // Enemies our player must avoid
-var Enemy = function(y, speed) {
+var Enemy = function(y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     // The image/sprite for our enemies, this uses
@@ -71,7 +71,11 @@ var Player = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
+Player.prototype.reset = function(){
+  //resets player position
+    this.x = 0;
+    this.y = 400;
+}
 Player.prototype.update = function() {
   //keeps player in the game area
     if (this.x > 404 ){
@@ -81,14 +85,13 @@ Player.prototype.update = function() {
         this.x == 0;
       }
     return this.x;
+    while (this.y <= 0)
+      {this.reset();
+      Points += 100;}
     };
 
 
-Player.prototype.reset = function(){
-  //resets player position
-    this.x = 0;
-    this.y = 400;
-}
+
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
@@ -116,10 +119,11 @@ Player.prototype.handleInput = function(e) {
 var timedSpawn = function(){
   enemy4 = new Enemy(140);
   allEnemies.push(enemy4);
-  console.log('i have spawned');
+  console.log('i have spawned 2nd row');
 }
 //spawns another enemy after 10 seconds
-//setTimeout(timedSpawn, 10*1000);
+setTimeout(timedSpawn, 10*1000);
+setInterval(timedSpawn,80*1000);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -132,9 +136,24 @@ var enemy = new Enemy(50);
 var enemy2 = new Enemy(140);
 var enemy3 = new Enemy(230);
 
-// allEnemies.push(enemy, enemy2, enemy3);
+allEnemies.push(enemy, enemy2, enemy3);
 
+//spawns new enemy after every 60 seconds
+var timedSpawn2 = function(){
+  var enemy = new Enemy(50);
+  allEnemies.push(enemy);
+  console.log('i have spawned first row');
+}
 
+setInterval(timedSpawn2, 60*1000);
+
+var timedSpawn3 = function(){
+  var enemy = new Enemy(230);
+  allEnemies.push(enemy);
+  console.log('i have spawned 3rd row');
+}
+
+setInterval(timedSpawn3, 60*1000);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -147,102 +166,3 @@ document.addEventListener('keyup', function(e) {
     };
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-
-var allGems = [];
-var allHearts = [];
-var Points = 0;
-var Lives = 3;
-var cnstXpos = [0,125,225,325];
-var cnstYpos = [180,280,380];
-
-
-//Heart object
-var Heart = function(){
-  this.x = cnstXpos[randomInt(0,3)];
-  this.y = cnstYpos[randomInt(0,2)];
-  this.sprite = 'images/Heart.png';
-
-}
-
-Heart.prototype.update = function(){
-  this.x;
-  this.y;
-  this.checkCollision(player);
-
-}
-
-Heart.prototype.render = function(){
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
-
-Heart.prototype.checkCollision = function(player){
-  //adds a life and 500 points
-  if (player.x < this.x + 41 &&
-      player.x + 41 > this.x &&
-      player.y < this.y + 50 &&
-      50 + player.y > this.y){
-        allHearts.pop(this.heart);
-        Points += 500;
-        Lives += 1;
-      }
-
-}
-
-
-
-var Gem = function(){
-  this.x = cnstXpos[randomInt(0,3)];
-  this.y = cnstYpos[randomInt(0,2)];
-  this.sprites = ['images/Gem Green.png',
-'images/Gem Orange.png', 'images/Gem Blue.png']
-//TO DO-- make a separate parameter for each image of gems
-}
-
-Gem.prototype.update = function(){
-  this.x;
-  this.y;
-  this.collision(player);
-}
-
-Gem.prototype.render = function(){
-//creates an animated effect
-  ctx.drawImage(Resources.get(this.sprites[randomInt(0,2)]), this.x, this.y);
-}
-
-Gem.prototype.collision = function(player){
-  //adds 200 points
-  if (player.x < this.x + 65 &&
-      player.x + 50 > this.x &&
-      player.y < this.y + 65 &&
-      50 + player.y > this.y){
-        allGems.pop(this.gem);
-        Points += 200;
-      }
-}
-
-
-
-
-//spawn gems into an array
-var spawnGem = function(){
-  var gem = new Gem();
-  allGems.push(gem);
-  console.log('new gem ');
-}
-//spawn hearts into an array
-var spawnHeart = function(){
-  var heart = new Heart();
-  allHearts.push(heart);
-  console.log('new heart ');
-}
-
-// //spawn gems and heart at set intervals
-setInterval(spawnHeart,1*1000);
-setInterval(spawnGem, 7*1000);
-
-var clearGem = function(){
-  allGems.pop(3);
-
-}
-setInterval(clearGem,5*1000);
