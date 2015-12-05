@@ -1,6 +1,11 @@
 frontend-nanodegree-arcade-game
 ===============================
+TO PLAY:
 
+----to get started---
+Download zip file to your hard drive
+Open index.html in your browser
+----game play----
 Use the arrow keys to control the player
 Try and get as many points as you can
   Hearts give an extra life and 100 points
