@@ -102,5 +102,5 @@ var spawnHeart = function(){
 }
 
 // //spawn gems and heart at set intervals
-setInterval(spawnHeart,15*1000);
-setInterval(spawnGem, 4*1000);
+setInterval(spawnHeart,7*1000);
+setInterval(spawnGem, 2*1000);
