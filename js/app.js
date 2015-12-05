@@ -17,7 +17,7 @@ var Enemy = function(y) {
     this.y = y;
 
     //generate random speed for update
-    this.speed = randomInt(25,75);
+    this.speed = randomInt(25,50);
 
   };
 
@@ -46,14 +46,20 @@ Enemy.prototype.checkCollision = function(player) {
         50 + player.y > this.y) {
         //resets player when collision occurs
         player.reset();
-        //window reloads to restart game
-        //location.reload();
+
         Points -= 200;
         Lives -= 1;
 
+    //window reloads to restart game
     if (Lives == 0) {
       location.reload();
     }
+    }
+    //when player reaches the water, resets to initial position
+    if (player.y < 0){
+      player.reset();
+      Points += 500;
+      console.log(player.x);
     }
 };
 // Draw the enemy on the screen, required method for game
@@ -76,6 +82,8 @@ Player.prototype.reset = function(){
     this.x = 0;
     this.y = 400;
 }
+
+
 Player.prototype.update = function() {
   //keeps player in the game area
     if (this.x > 404 ){
@@ -85,10 +93,10 @@ Player.prototype.update = function() {
         this.x == 0;
       }
     return this.x;
-    };
 
 
 
+    }
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite),this.x, this.y);
